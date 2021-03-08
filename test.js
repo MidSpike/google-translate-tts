@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const { GoogleTranslateTTS } = require('./index.js');
 
