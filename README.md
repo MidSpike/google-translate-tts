@@ -6,7 +6,7 @@ npm i github:MidSpike/google-translate-tts
 ```
 
 ## Usage
-```
+```js
 const fs = require('fs');
 const { GoogleTranslateTTS } = require('google-translate-tts');
 
