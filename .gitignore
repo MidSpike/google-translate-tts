@@ -20,7 +20,6 @@
 # node stuff
 node_modules
 npm
-package-lock.json
 
 # runtime generated content
 *.mp3

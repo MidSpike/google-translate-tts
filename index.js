@@ -1,55 +1,47 @@
 'use strict';
 
-//---------------------------------------------------------------------------------------------------------------//
+//------------------------------------------------------------//
 
-const querystring = require('querystring');
 const axios = require('axios');
 
-//---------------------------------------------------------------------------------------------------------------//
+//------------------------------------------------------------//
 
-/**
- * @typedef {{
- *  language: String,
- *  text: String,
- * }} GoogleTranslateTTSOptions
- */
+/// <reference path="./index.d.ts" />
 
-//---------------------------------------------------------------------------------------------------------------//
+//------------------------------------------------------------//
 
 class GoogleTranslateTTS {
-    language='en-us';
-    text='hello world';
+    language;
+    text;
 
     /**
-     * Constructs a new GoogleTranslateTTS
-     * @param {GoogleTranslateTTSOptions} opts 
+     * Constructs a new GoogleTranslateTTS instance
      */
-    constructor(opts={}) {
-        if (typeof opts !== 'object') throw new TypeError('\`options\` is not an \`object\`');
-        if (opts.language && typeof opts.language !== 'string') throw new TypeError('\`opts.language\` is not a \`string\`');
-        if (opts.text && typeof opts.text !== 'string') throw new TypeError('\`opts.text\` is not a \`string\`');
+    constructor(options) {
+        if (typeof options !== 'object') throw new TypeError('\`options\` must be an \`object\`');
+        if (options.language && typeof options.language !== 'string') throw new TypeError('\`options.language\` must be a \`string\`');
+        if (options.text && typeof options.text !== 'string') throw new TypeError('\`options.text\` must be a \`string\`');
 
-        this.language = opts.language ?? this.language;
-        this.text = opts.text ?? this.text;
+        this.language = options.language ?? 'en-us';
+        this.text = options.text ?? 'hello world';
     }
 
     /**
-     * @property {String} stream_url
+     * Returns the url used in the stream
      */
     get stream_url() {
-        const stream_url_parameters = querystring.stringify({
+        const stream_url_parameters = new URLSearchParams({
             'ie': 'UTF-8',
             'client': 'tw-ob',
             'tl': `${this.language}`,
-            'q': `${this.text}`
+            'q': `${this.text}`,
         });
 
         return `https://translate.google.com/translate_tts?${stream_url_parameters}`;
     }
 
     /**
-     * Returns a ReadableStream
-     * @returns {import('stream').Readable} a ReadableStream
+     * Returns a readable stream
      */
     async stream() {
         const { data: response_stream } = await axios({
@@ -57,9 +49,12 @@ class GoogleTranslateTTS {
             url: this.stream_url,
             responseType: 'stream',
         });
+
         return response_stream;
     }
 }
+
+//------------------------------------------------------------//
 
 module.exports = {
     GoogleTranslateTTS,

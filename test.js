@@ -1,5 +1,12 @@
-const fs = require('fs');
+'use strict';
+
+//------------------------------------------------------------//
+
+const fs = require('node:fs');
+
 const { GoogleTranslateTTS } = require('./index.js');
+
+//------------------------------------------------------------//
 
 async function main() {
     const gt_tts = new GoogleTranslateTTS({
@@ -17,4 +24,5 @@ async function main() {
 
     console.log('[TEST] > Confirm this test by playing the file');
 }
+
 main();

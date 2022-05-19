@@ -7,7 +7,8 @@ npm i github:MidSpike/google-translate-tts
 
 ## Usage
 ```js
-const fs = require('fs');
+const fs = require('node:fs');
+
 const { GoogleTranslateTTS } = require('google-translate-tts');
 
 async function main() {
@@ -23,6 +24,7 @@ async function main() {
     // saves the readable stream to an mp3 file
     gt_tts_stream.pipe(fs.createWriteStream('./test.mp3'));
 }
+
 main();
 ```
 
