@@ -6,10 +6,6 @@ const axios = require('axios');
 
 //------------------------------------------------------------//
 
-/// <reference path="./index.d.ts" />
-
-//------------------------------------------------------------//
-
 class GoogleTranslateTTS {
     language;
     text;
